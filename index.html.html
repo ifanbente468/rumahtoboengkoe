@@ -1,0 +1,524 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: scaleY(1)
+    }
+
+    50% {
+      transform: scaleY(1.6)
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg)
+    }
+  }
+
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1
+    }
+
+    50% {
+      opacity: 0.3
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%)
+    }
+
+    100% {
+      transform: translateX(-100%)
+    }
+  }
+
+  @keyframes bar1 {
+
+    0%,
+    100% {
+      height: 8px
+    }
+
+    50% {
+      height: 32px
+    }
+  }
+
+  @keyframes bar2 {
+
+    0%,
+    100% {
+      height: 14px
+    }
+
+    50% {
+      height: 22px
+    }
+  }
+
+  @keyframes bar3 {
+
+    0%,
+    100% {
+      height: 6px
+    }
+
+    50% {
+      height: 36px
+    }
+  }
+
+  @keyframes bar4 {
+
+    0%,
+    100% {
+      height: 20px
+    }
+
+    50% {
+      height: 12px
+    }
+  }
+
+  @keyframes bar5 {
+
+    0%,
+    100% {
+      height: 18px
+    }
+
+    50% {
+      height: 28px
+    }
+  }
+
+  @keyframes bar6 {
+
+    0%,
+    100% {
+      height: 10px
+    }
+
+    50% {
+      height: 30px
+    }
+  }
+
+  @keyframes bar7 {
+
+    0%,
+    100% {
+      height: 24px
+    }
+
+    50% {
+      height: 10px
+    }
+  }
+
+  @keyframes bar8 {
+
+    0%,
+    100% {
+      height: 16px
+    }
+
+    50% {
+      height: 34px
+    }
+  }
+
+  @media(prefers-reduced-motion:reduce) {
+    * {
+      animation: none !important
+    }
+  }
+
+  .screen {
+    background: #0a0a12;
+    border-radius: 16px;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    color: #fff;
+    padding: 0;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    border: 1px solid #ffffff18
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px 8px;
+    background: #0a0a12
+  }
+
+  .live-badge {
+    background: #e8323c;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    animation: blink 2s ease-in-out infinite
+  }
+
+  .viewer-count {
+    font-size: 12px;
+    color: #ffffff99;
+    display: flex;
+    align-items: center;
+    gap: 4px
+  }
+
+  .dot-live {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e8323c;
+    display: inline-block
+  }
+
+  .bg-visual {
+    position: relative;
+    height: 200px;
+    background: #0d0d1a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
+
+  .bg-circles {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid #7f77dd22
+  }
+
+  .circle:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    animation: pulse 3s ease-in-out infinite
+  }
+
+  .circle:nth-child(2) {
+    width: 130px;
+    height: 130px;
+    animation: pulse 3s ease-in-out infinite 0.4s
+  }
+
+  .circle:nth-child(3) {
+    width: 180px;
+    height: 180px;
+    animation: pulse 3s ease-in-out infinite 0.8s
+  }
+
+  .circle:nth-child(4) {
+    width: 240px;
+    height: 240px;
+    animation: pulse 3s ease-in-out infinite 1.2s
+  }
+
+  .album-art {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #534AB7, #D4537E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    z-index: 2;
+    border: 3px solid #ffffff18;
+    animation: spin 8s linear infinite
+  }
+
+  .album-art-inner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #0a0a12
+  }
+
+  .song-info {
+    padding: 14px 16px 8px;
+    background: #0a0a12
+  }
+
+  .song-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden
+  }
+
+  .song-artist {
+    font-size: 12px;
+    color: #ffffff88;
+    margin-top: 3px
+  }
+
+  .genre-pill {
+    display: inline-block;
+    background: #534AB722;
+    color: #AFA9EC;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 6px;
+    border: 0.5px solid #534AB744
+  }
+
+  .visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    padding: 12px 16px;
+    height: 60px;
+    background: #0a0a12
+  }
+
+  .bar {
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    background: #7f77dd;
+    opacity: 0.85;
+    min-height: 4px
+  }
+
+  .bar:nth-child(1) {
+    animation: bar1 0.8s ease-in-out infinite
+  }
+
+  .bar:nth-child(2) {
+    animation: bar2 0.9s ease-in-out infinite 0.1s;
+    background: #AFA9EC
+  }
+
+  .bar:nth-child(3) {
+    animation: bar3 0.7s ease-in-out infinite 0.2s
+  }
+
+  .bar:nth-child(4) {
+    animation: bar4 1.1s ease-in-out infinite 0.15s;
+    background: #D4537E
+  }
+
+  .bar:nth-child(5) {
+    animation: bar5 0.85s ease-in-out infinite 0.05s
+  }
+
+  .bar:nth-child(6) {
+    animation: bar6 0.95s ease-in-out infinite 0.25s;
+    background: #AFA9EC
+  }
+
+  .bar:nth-child(7) {
+    animation: bar7 0.75s ease-in-out infinite 0.1s
+  }
+
+  .bar:nth-child(8) {
+    animation: bar8 1.0s ease-in-out infinite 0.3s;
+    background: #D4537E
+  }
+
+  .bar:nth-child(9) {
+    animation: bar1 0.88s ease-in-out infinite 0.18s
+  }
+
+  .bar:nth-child(10) {
+    animation: bar3 0.92s ease-in-out infinite 0.08s;
+    background: #AFA9EC
+  }
+
+  .bar:nth-child(11) {
+    animation: bar5 0.78s ease-in-out infinite 0.22s
+  }
+
+  .bar:nth-child(12) {
+    animation: bar2 1.05s ease-in-out infinite 0.12s;
+    background: #D4537E
+  }
+
+  .bar:nth-child(13) {
+    animation: bar6 0.82s ease-in-out infinite
+  }
+
+  .bar:nth-child(14) {
+    animation: bar4 0.97s ease-in-out infinite 0.07s;
+    background: #AFA9EC
+  }
+
+  .bar:nth-child(15) {
+    animation: bar7 0.73s ease-in-out infinite 0.2s
+  }
+
+  .bar:nth-child(16) {
+    animation: bar8 0.87s ease-in-out infinite 0.14s
+  }
+
+  .ticker {
+    background: #13131f;
+    overflow: hidden;
+    padding: 7px 0;
+    border-top: 0.5px solid #ffffff12
+  }
+
+  .ticker-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 18s linear infinite;
+    font-size: 12px;
+    color: #ffffff66
+  }
+
+  .ticker-sep {
+    color: #534AB7;
+    margin: 0 14px
+  }
+
+  .next-up {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: #0f0f1c;
+    border-top: 0.5px solid #ffffff10
+  }
+
+  .next-label {
+    font-size: 11px;
+    color: #ffffff44;
+    min-width: 44px
+  }
+
+  .next-title {
+    font-size: 12px;
+    color: #ffffff88;
+    font-weight: 500
+  }
+
+  .bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px 14px;
+    background: #0a0a12;
+    border-top: 0.5px solid #ffffff10
+  }
+
+  .station-name {
+    font-size: 13px;
+    color: #7f77dd;
+    font-weight: 500;
+    letter-spacing: 0.3px
+  }
+
+  .time-display {
+    font-size: 12px;
+    color: #ffffff55;
+    font-family: var(--font-mono)
+  }
+</style>
+
+<div style="padding:1rem 0">
+  <div class="screen">
+    <div class="top-bar">
+      <span class="live-badge">LIVE</span>
+      <div class="viewer-count"><span class="dot-live"></span> 1.2K nonton</div>
+    </div>
+
+    <div class="bg-visual">
+      <div class="bg-circles">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <div class="album-art">
+        <div class="album-art-inner"></div>
+      </div>
+    </div>
+
+    <div class="song-info">
+      <div class="song-title">Asa Tangke Bunga</div>
+      <div class="song-artist">Lagu Daerah Bungku</div>
+      <span class="genre-pill">Traditional · Kab.Morowali</span>
+    </div>
+
+    <div class="visualizer">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <div class="ticker">
+      <div class="ticker-inner">
+        Selamat datang di Morowali&nbsp;<span class="ticker-sep">◆</span>&nbsp;Putar lagu daerah Bungku
+        non-stop&nbsp;<span class="ticker-sep">◆</span>&nbsp;Request lagu di kolom komentar&nbsp;<span
+          class="ticker-sep">◆</span>&nbsp;Follow untuk notifikasi live berikutnya&nbsp;<span
+          class="ticker-sep">◆</span>
+      </div>
+    </div>
+
+    <div class="next-up">
+      <span class="next-label">Next up</span>
+      <span class="next-title">Tari Moindah — Musik Tradisional Morowali</span>
+    </div>
+
+    <div class="bottom-bar">
+      <span class="station-name">Radio Bungku</span>
+      <span class="time-display" id="clk">--:--</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function tick() {
+    const d = new Date();
+    const h = String(d.getHours()).padStart(2, '0');
+    const m = String(d.getMinutes()).padStart(2, '0');
+    document.getElementById('clk').textContent = h + ':' + m;
+  }
+  tick(); setInterval(tick, 1000);
+</script>
